@@ -1,9 +1,9 @@
 package edu.icet.controller;
 
-import edu.icet.model.dto.Customer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import edu.icet.model.entity.Customer;
+import edu.icet.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+
+    @Autowired
+    CustomerService customerService;
 
     @GetMapping("/name")
     public String getName(){
@@ -34,14 +37,11 @@ public class CustomerController {
 
     List<Customer> customerList = new ArrayList<>();
 
-    public List<Customer> getAll(){
-        customerList.add( new Customer("1",
-                        "saman",
-                        "walana",
-                        75000.0)
-        );
-        return customerList;
+    @GetMapping("/get-all")
+    public List<Customer> getAll() {
+        return customerService.getAll();
     }
+
 }
 
 
